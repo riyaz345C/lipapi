@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="submitx(event)">
+        <input type="text" name="name" id="name" placeholder="name">
+        <input type="text" name="password" id="password" placeholder="password">
+        <input type="submit" value="submit">
+    </form>
+    <script>
+        async function submitx(event){
+            event.preventDefault()
+            try {
+            const data = new FormData(event.target)
+            console.log(data,typeof(data))
+            const formObject = {};
+            data.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            console.log(formObject);
+           const postData = await fetch(`http://localhost:4000/login`,{
+                method:'POST',
+                headers: {
+                        'Content-Type': 'application/json'
+                    },
+                body:JSON.stringify(formObject)
+            })
+            const x = await postData.json()
+            // console.log(x);
+            if(postData.status==404){
+                alert('user not found')
+                return
+            }
+            // console.log(postData.data);
+            if(x){
+                window.localStorage.setItem('lipToken',x.token)
+                console.log('seuccess');
+                window.location.href = 'account.html'
+            }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+</body>
+</html>
