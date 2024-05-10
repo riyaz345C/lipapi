@@ -28,7 +28,8 @@ const authMiddleWare = require('../middleware/authMiddleWare')
 const isAdmin = (req,res,next)=>{
     if(req.user.role === 'admin'){
     next()
-}}
+}
+}
 router.get('/',authMiddleWare,async(req,res)=>{
     try {
     // fetch product list
@@ -48,11 +49,10 @@ router.post('/',authMiddleWare,isAdmin,upload.any(),async(req,res) => {
             res.json({message:'no data foun'})
             return
         }
-        console.log('=======================================================');
         let postdata = JSON.parse(req.body.postdata)
         let dirnames = req.dirnames
-        console.log(req.dirnames,postdata);
-        let toJson = (x) => {return JSON.stringify(x)}
+        // console.log(req.dirnames,postdata);
+       //{ // let toJson = (x) => {return JSON.stringify(x)}
         // let userData = `let x =${toJson(req.dirnames)}\n let y = ${req.body.postdata}\n
         //  ${toJson({ 
         //     ...postdata,
@@ -67,11 +67,12 @@ router.post('/',authMiddleWare,isAdmin,upload.any(),async(req,res) => {
         //         return
         //     }
         //     console.log('file created');
-        // })
-        console.log('########################################################',req.query.projectname.split(' ').join('-')+'--'+
-        req.files[0].fieldname+
-        '.'+req.files[0].originalname.split('.').pop(),'########################################################');
+        // // })
+        // console.log('########################################################',req.query.projectname.split(' ').join('-')+'--'+
+        // req.files[0].fieldname+
+        // '.'+req.files[0].originalname.split('.').pop(),'########################################################');}
         let len = req.files.length - 1
+        console.log(req.files[1].fieldname,len);
         const db = await User.updateOne({ name:req.user.name},{
             "$push" : {
                 "projects": {
@@ -84,17 +85,17 @@ router.post('/',authMiddleWare,isAdmin,upload.any(),async(req,res) => {
                         content:e.content
                     })),
                     projectPlan:req.query.projectname.split(' ').join('-')+'--'+
-                    req.files[len - 1].fieldname+
-                    '.'+req.files[len - 1].originalname.split('.').pop()
+                    req.files[len].fieldname+
+                    '.'+req.files[len].originalname.split('.').pop()
                 }
             }
         })
-        // console.log(db,); 
     res.status(200).json({message:'done'})
     } catch (error) {
         console.log(error);
     }
 })
+
 let box = Array(6).fill().map((_,index) => 
 ({id:index+1,head:'head',content:'content'}))
 const dataFields = {

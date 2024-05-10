@@ -7,12 +7,12 @@ const path = require('path');
 const authMiddleWare = require('../middleware/authMiddleWare');
 router.delete('/:id',authMiddleWare,async(req,res)=>{
     try {
+        console.log(req.params.id);
     const project = await User.updateOne(
         { "name": "riyaz" }, // Match documents with the specified name
-        { $pull: { "projects": { "projectName": req.params.id } } } // Remove the project with the specified projectName
+        { $set: { "projects": { "projectName": req.params.id } } } // Remove the project with the specified projectName
       )
-    //   console.log(req.params,project);
-    //   console.log(fs.readdir(join(path.dirname(__dirname),'uploads')),);
+   
     fs.readdir(join(path.dirname(__dirname),'uploads'),'',(err,files)=>{
         if(err){
             console.log(err);
@@ -26,6 +26,7 @@ router.delete('/:id',authMiddleWare,async(req,res)=>{
                         return
                     }
                     console.log('file deleted');
+                    
                 })
             }
         });
@@ -40,5 +41,4 @@ router.delete('/:id',authMiddleWare,async(req,res)=>{
     console.log(error);
 }    
 })
-
 module.exports = router

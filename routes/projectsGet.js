@@ -11,6 +11,15 @@ router.get('/',async(req,res)=>{
         console.log(error);
     }
 })
+// .get('/carddata',async(req,res)=>{
+//     try {
+//         const products = await User.find({},{"projects.projectName":1,"_id":0})
+//         console.log(products);
+//         res.json(products)
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })
 .get('/:id',async(req,res)=>{
     try {
         const pname =  req.params.id.split('%20').join(' ')
