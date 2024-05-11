@@ -10,7 +10,7 @@ router.delete('/:id',authMiddleWare,async(req,res)=>{
         console.log(req.params.id);
     const project = await User.updateOne(
         { "name": "riyaz" }, // Match documents with the specified name
-        { $set: { "projects": { "projectName": req.params.id } } } // Remove the project with the specified projectName
+        { $pull: { "projects": { "projectName": req.params.id } } } // Remove the project with the specified projectName
       )
    
     fs.readdir(join(path.dirname(__dirname),'uploads'),'',(err,files)=>{
