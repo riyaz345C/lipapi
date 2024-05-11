@@ -50,7 +50,7 @@ router.post('/',authMiddleWare,isAdmin,upload.any(),async(req,res) => {
             return
         }
         let postdata = JSON.parse(req.body.postdata)
-        let dirnames = req.dirnames
+        let dirnames = req.dirnames 
         // console.log(req.dirnames,postdata);
        //{ // let toJson = (x) => {return JSON.stringify(x)}
         // let userData = `let x =${toJson(req.dirnames)}\n let y = ${req.body.postdata}\n

@@ -1,12 +1,28 @@
 const multer = require('multer')
 const path =  require('path')
+const fs = require('fs')
 // Define storage for uploaded files
 // let imgFiles = [] 
 // let newName;
 // let d = 0;
+async function createFolder(folderPath){
+    try {
+        await fs.promises.mkdir(folderPath)
+        console.log('folder created');
+    } catch (error) {
+        console.log(error);
+    }
+}
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(req.query.projectname.split(' ').join('-'),file,'popop');
+        console.log({uploadsExist:fs.existsSync(path.join(path.dirname(__dirname),'uploads'))}
+        ,req.query.projectname.split(' ').join('-'),file,'popop');
+
+        if(!fs.existsSync(path.join(path.dirname(__dirname),'uploads'))){
+
+            createFolder(path.join(path.dirname(__dirname),'uploads'))
+            
+        }
         cb(null, path.join(path.dirname(__dirname),'uploads')) // Save files to the 'uploads' directory
     },
     filename: function (req, file, cb) {
