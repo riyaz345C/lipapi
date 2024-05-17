@@ -18,6 +18,7 @@ app.use('/protected',require('./routes/protected'))
 app.use('/delete',require('./routes/deleteProduct'))
 app.use('/update',require('./routes/update'))
 app.use('/projects',require('./routes/projectsGet'))
+app.use('/sendEmail',require('./routes/mailSender'))
 app.listen(4000,()=>{
     console.log('kkkkkkkkkkkkkkkkkkk');
 })

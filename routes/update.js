@@ -47,6 +47,7 @@ try {
     },{
         $set: data
     })
+    console.log("lip",status,'lip')
     res.status(200).json({message:'done'})
 } catch (error) {
     console.log(error);
