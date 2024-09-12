@@ -15,15 +15,17 @@ router.post('/', async (req, res) => {
     let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'riyazaddbazar345@gmail.com',
-            pass: 'iqkghtlmrumuztle'
+            // user: 'riyazaddbazar345@gmail.com',
+            // pass: 'iqkghtlmrumuztle'
+            user: 'enquirylandsindia@gmail.com',
+            pass: 'kpivnrsonzqhiozk'
         }
     });
 
     // Define email options
     let mailOptions = {
-        from: 'riyazaddbazar345@gmail.com',
-        to: 'riyazaddbazar345@gmail.com',
+        from: 'enquirylandsindia@gmail.com',
+        to: 'enquirylandsindia@gmail.com',
         subject: 'subject',
         text: objectToString(req.body)
     };
